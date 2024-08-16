@@ -3,24 +3,19 @@
 
 char *str_tok(char *str, char *delim) {
     static char *ptr = NULL;
-    if(str)
-        ptr = str;
-    if(ptr == NULL)
-        return NULL;
+    if (str) ptr = str;
+    if (ptr == NULL) return NULL;
     char *start = ptr;
     char *p = ptr;
-    while(*p != '\0' && *p != *delim)
-        p++;
-    if(*p == '\0'){
+    while (*p != '\0' && *p != *delim) p++;
+    if (*p == '\0') {
         ptr = NULL;
-    }
-    else {
+    } else {
         *p = '\0';
         ptr = ++p;
     }
     return start;
 }
-
 
 int main() {
     char string[64];
