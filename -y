@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+
+void print(int arr[], int len){
+   for(int i = 0; i < len; i++){
+	printf("%d\t", arr[i]);
+
+   } 
+	printf("\n");
+}
+void swap(int arr[], int i, int j){
+  int temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+void partition(int arr[], int start, int end){
+  int key = arr[start];
+  int i = start + 1, j = end;
+  for(int k = 0; k <= end && i < j; k++){
+    while(i < j){
+      if(arr[i] > key)
+        break;
+       i++;
+    }
+    while(j > i){
+      if(arr[j] < key)
+        break;   
+       j--; 
+    }
+    swap(arr, i, j);
+    print(arr, 6);
+  }
+  swap(arr, 0, i-1);
+}
+
+void qsort(int arr, int len){
+
+}
+
+int main() {
+  int arr[] = {7, 8, 5, 3, 9, 4};
+  partition(arr, 0,  5);
+  for(int i = 0; i < 6; i++)
+    printf("%d\t", arr[i]);
+  printf("\n");
+  return 0;
+}

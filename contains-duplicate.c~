@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool containsDuplicate(int *nums, int len){
+  for(int i = 0; i < len; i++){
+    for(int j = i+1; j < len; j++){
+      if(nums[j] == nums[i])
+        return true;
+    }
+  }
+  return false;
+}
+
+int main(){
+  int arr[10];
+  int len = 0;
+  while(scanf("%d", &arr[len++]));
+  len--;
+  if(containsDuplicate(arr, len))
+     printf("true\n"); 
+  else
+    printf("false\n");
+  return 0;
+}
