@@ -29,7 +29,6 @@ result *str(char *str1, char *str2) {
     return_result -> len = max;
     return_result -> seq = max_seq;
     return return_result;
-
 }
 
 int main() {
