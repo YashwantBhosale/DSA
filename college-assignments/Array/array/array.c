@@ -83,8 +83,6 @@ array *merge(array a1, array a2) {
     if(!a3){
         printf("Memory was not allocated! Please try again!\n");
         return NULL;
-    }else{
-        printf("Memory allocation successful!");
     }
     a3->size = a1.size + a2.size;
     a3->arr = (int *)malloc(sizeof(int) * a3->size);

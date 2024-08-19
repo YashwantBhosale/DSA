@@ -23,6 +23,10 @@ void read_option(int option) {
             return;
             break;
         }case 2: {
+            if(list_ptr == -1){
+                printf("Please initialize an array first!");
+                return;
+            }
             int index, data;
             node *p;
             printf("Enter array no.: ");
@@ -42,6 +46,10 @@ void read_option(int option) {
             return;
             break;
         }case 3: {
+            if(list_ptr == -1){
+                printf("Please initialize an array first!");
+                return;
+            }
             node* p;
             int data, index, array;
             printf("Array no.: ");
@@ -59,6 +67,10 @@ void read_option(int option) {
             insert_at_index(p->A, index, data);
             return;
         }case 4: {
+            if(list_ptr == -1){
+                printf("Please initialize an array first!");
+                return;
+            }
             node* p;
             int index, array;
             printf("Array no.: ");
@@ -74,6 +86,10 @@ void read_option(int option) {
             remove_at_index(p->A, index);
             return;
         }case 5: {
+            if(list_ptr == -1){
+                printf("Please initialize an array first!");
+                return;
+            }
             node *p;
             int array, i =0;
             printf("Array no: ");
@@ -85,7 +101,11 @@ void read_option(int option) {
             }
             display(*(p->A));
             return;
-        }case 6: {            
+        }case 6: {    
+            if(list_ptr == -1){
+                printf("Please initialize an array first!");
+                return;
+            }        
             node *p;
             int array, i =0;
             printf("Array no: ");
@@ -96,6 +116,7 @@ void read_option(int option) {
                 i++;
             }
             max_min(*(p->A));
+            return;
         }
         case 7: {
             int index;
@@ -142,6 +163,10 @@ void read_option(int option) {
 
         }
         case 9: {
+            if(list_ptr == -1){
+                printf("Please initialize an array first!");
+                return;
+            }
             int index;
             node *p;
             printf("Enter array no.: ");
@@ -176,9 +201,10 @@ int main(){
         printf("enter option: ");
         scanf("%d", &option);
         read_option(option);
-        if(option == 9){
+        if(option == 10){
             break;
         }
+        printf("\nArray List: \n");
         display_list(l);
     }
     return 0;

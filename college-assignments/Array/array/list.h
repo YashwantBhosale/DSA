@@ -8,4 +8,3 @@ typedef node * list;
 void append_node(list *l, array *array);
 void display_list (list l) ;
 void init_list(list *l);
-

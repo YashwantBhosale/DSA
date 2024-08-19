@@ -24,7 +24,7 @@ double cosine(double x) {
     cosinex = 1;
     term = 1;
 
-    while(fabs(term) > 1e-8) {
+    while(term > 1e-8) {
         term = (term * (x * x)) / (i * (i-1));
         cosinex = cosinex + (sign * term);
         sign = sign * (-1);
@@ -65,7 +65,7 @@ int main() {
     printf("Enter x: ");
     scanf("%lf", &x);
     int option;
-    printf("1. Calculate Sinex\n2. Calculate Cosinex\n3. Calculate sine inverse x.\n4. Calculate cosine inverse x.\n5. Calculate tanx.\n");
+    printf("1. Calculate Sinex\n2. Calculate Cosinex\n3. Calculate sine inverse x.\n4. Calculate cosine inverse x.\n5. Calculate tanx.\n6. Calculate sin^-1(sin(x)).\n");
     printf("Enter option: ");
     scanf("%d", &option);
     switch(option) {
@@ -89,6 +89,10 @@ int main() {
 	        result = sine(x) / cosine(x);
             break;
 	    }
+        case 6: {
+            result = sine_inverse(sine(x));
+            break;
+        }
         default: {
             printf("Invalid option!");
             result = -1;
