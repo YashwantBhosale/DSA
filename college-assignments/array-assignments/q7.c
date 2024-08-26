@@ -1,4 +1,3 @@
-// Delete all duplicate elements from an array retaining the first occurrence. Note: Array elements cannot be deleted. shift and replace can be done.
 #include <stdio.h>
 
 void print(int *arr, int len) {
@@ -8,14 +7,12 @@ void print(int *arr, int len) {
     printf("\n");
     return;
 }
-
 void remove_element(int *arr, int len, int index) {
     for (int i = index; i < len-1; i++) {
         arr[i] = arr[i+1];
     }
     return;
 }
-
 int remove_duplicates(int *arr, int len) {
     for(int i = 0; i < len; i++) {
         for(int j = i; j < len; j++) {
@@ -27,7 +24,6 @@ int remove_duplicates(int *arr, int len) {
     }
     return len;
 }
-
 int main() {
     int arr[] = {1, 1, 2, 2, 3, 3, 4, 4, 5, 5};
     print(arr, 10);

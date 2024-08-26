@@ -86,14 +86,9 @@ void display_low_aggreagate_students() {
         printf("Name: %s ", students[i]->name.firstName);
         printf("%s ", students[i]->name.middleName);
         printf("%s\n", students[i]->name.lastName);
-        printf("rollno: %d\n", students[i]->rollno);
-        printf("Gender: %s\n", students[i]->gender);
-        printf("dob: %d / %d / %d\n", students[i]->date.day, students[i]->date.month, students[i]->date.year);
-        printf("Marks:\nEnglish: %d\nMathematics: %d\nComputer Science: %d\n", students[i]->marks.english_marks, students[i]->marks.mathematics_marks, students[i]->marks.cs_marks);
         printf("average: %d\n", (students[i]->marks.english_marks + students[i]->marks.mathematics_marks+students[i]->marks.cs_marks)/3);
         printf("----------------------------------------------------------------------------\n");
         }
-        printf("%d\n", ((students[i]->marks.english_marks + students[i]->marks.mathematics_marks+students[i]->marks.cs_marks))/3);
         i++;
     }
 }
@@ -101,17 +96,33 @@ void display_low_aggreagate_students() {
 
 int main() {
     init();
-    Name name = {"yash", "c", "bhosale"};
-    int rollno = 1;
     char gender[] = "Male";
-    date birthdate = {19, 7, 2005};
-    marks student_marks = {40, 35, 35};
-    marks student_marks2 = {60, 60, 60};
+    int rollno = 1;
+    marks student_marks1 = {40, 35, 35};
+    // marks student_marks2 = {60, 60, 60};
+    marks student_marks3 = {50, 35, 55};
+    marks student_marks4 = {30, 38, 50};
+    // marks student_marks5 = {55, 50, 45};
+    date birthdate = {1, 1, 2000};
+    date birthdate2 = {1, 1, 2001};
 
-    append_student(name, rollno, gender, birthdate, student_marks);
-    append_student(name, rollno, gender, birthdate, student_marks2);
+    Name name1 = {"yashwant", "c", "bhosale"};
+    append_student(name1, rollno++, gender, birthdate, student_marks1);
 
-    // display_students();
+    // Name name2 = {"manohar", "a", "jadhav"};
+    // append_student(name2, rollno++, gender, birthdate, student_marks2);
+
+    Name name3 = {"daulat", "S", "patil"};
+    append_student(name3, rollno++, gender, birthdate, student_marks3);
+
+    Name name4 = {"Dhruv", "m", "patil"};
+    append_student(name4, rollno++, gender, birthdate2, student_marks4);
+
+    // Name name5 = {"Rishabh", "R", "sharma"};
+    // append_student(name5, rollno++, gender, birthdate2, student_marks5);
+
+    display_students();
+    printf("\n\n\n");
+    printf("Low aggregate students\n");
     display_low_aggreagate_students();
-    return 0;
 }

@@ -1,17 +1,19 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-int lcm(int num1, int num2) {
-    int sum1 = 0, sum2 = 0;
-    while(sum1 <= (num1*num2) && sum2 <= (num1*num2)){
-        sum1 += num1;
-        sum2 += num2;
-        if(sum1 == sum2)
-            return sum1;
+int gcd(int a, int b) {
+    int gcd=0;
+    for(int i = 1; i<=a && i<=b; i++) {
+        if(a%i == 0 && b%i == 0) {
+            gcd = i;
+        }
     }
+    return gcd;
 }
 
-int main(){
-    
+int main() {
+    int a, b;
+    printf("Enter two numbers: ");
+    scanf("%d%d", &a, &b);
+    printf("GCD of %d and %d is %d\n", a, b, gcd(a, b));
     return 0;
 }

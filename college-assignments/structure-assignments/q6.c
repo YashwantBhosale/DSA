@@ -35,9 +35,15 @@ void validate_date(date d) {
         printf("Invalid year!\n");
         return;
     }
-    if((d.day == 29) && d.month == 2 && (d.year%4!=0 || d.year%100==0)){
-        printf("Invalid date! Year is not a leap year");
-        return;
+    if(d.day == 29 && d.month == 2) {
+        if(d.year%4 != 0) {
+            printf("Invalid date! Year is not a leap year\n");
+            return;
+        }
+        if(d.year%100 == 0 && d.year%400 != 0) {
+            printf("Invalid date! Year is not a leap year\n");
+            return;
+        }
     }
     if(d.day >= 30 && d.month == 2){
 	printf("February cannot have more than 29 days!\n");

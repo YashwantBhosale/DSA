@@ -3,9 +3,11 @@
 #include <math.h>
 
 double sine(double x) {
+    if(x > 3.14159265) {
+        x = x - 3.14159265;
+    }
     double sinex, term;
     int i = 3, sign = -1;
-    
     sinex = x;
     term = x;
     while(fabs(term) > 1e-8) {
@@ -18,12 +20,13 @@ double sine(double x) {
 }
 
 double cosine(double x) {
+    if(x > 3.14159265) {
+        x = x - 3.14159265;
+    }
     double cosinex, term;
     int i = 2, sign = -1;
-
     cosinex = 1;
     term = 1;
-
     while(term > 1e-8) {
         term = (term * (x * x)) / (i * (i-1));
         cosinex = cosinex + (sign * term);
