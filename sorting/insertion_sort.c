@@ -1,13 +1,6 @@
 /* Insertion sort in c */
 #include <stdio.h>
-
-void swap(int *arr, int i, int j) {
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
-    return;
-}
-
+#include "array.h"
 // Sorted part of the array at the starting part of the array
 void insertion_sort(int *arr, int len) {
     for(int i = 0; i < len-1; i++) {
@@ -34,19 +27,13 @@ void insertion_sort_v2(int *arr, int len) {
     return;
 }
 
-void print_array(int *arr, int len) {
-    printf("[\t");
-    for(int i = 0; i < len; i++) {
-        printf("%d\t", arr[i]);
-    }
-    printf("]\n");
-    return;
-}
-
 int main() {
-    int arr[] = {9, 5, 2, 1, 3,  4, 6};
-    insertion_sort(arr, 7);
+    int arr[8], len;
+    len = 8;
+    populate(arr, len);
+    print_array(arr, len);   
+    insertion_sort(arr, len);
     // insertion_sort_v2(arr, 7);
-    print_array(arr, 7);
+    print_array(arr, len);
     return 0;
 }
