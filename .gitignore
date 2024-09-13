@@ -2,3 +2,4 @@
 *.zip
 *.out
 *.o
+.vscode/

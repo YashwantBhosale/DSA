@@ -1,22 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 /* Stack operations and declarations */
 typedef struct Stack {
-    char *arr;
+    int *arr;
     int size;
     int top;
 } stack;
 
 void init_stack(stack *s, int size) {
-    s->arr = (char *)malloc(sizeof(char) * size);
+    s->arr = (int *)malloc(sizeof(int) * size);
     s->size = size;
     s->top = -1;
     return;
 }
 
-void push(stack *s, char data) {
+void push(stack *s, int data) {
     s->arr[++s->top] = data;
     return;
 }
@@ -102,6 +103,7 @@ void infix_to_postfix(char *infix_string) {
             case ')': {
                 while(peek(char_stack) != '('){
                     postfix[ptr++] = pop(&char_stack);
+                    postfix[ptr++] = ' ';
                 }
                 pop(&char_stack);
                 i++;
@@ -111,16 +113,17 @@ void infix_to_postfix(char *infix_string) {
                 if (is_operator(infix_string[i])) {
                     while (!is_empty(char_stack) && precedance(infix_string[i]) <= precedance(peek(char_stack))) {
                         postfix[ptr++] = pop(&char_stack);
+                        postfix[ptr++] = ' ';
                     }
                     if(infix_string[i] != ')')
                         push(&char_stack, infix_string[i++]);
                 } else{
-                    postfix[ptr++] = ' ';
                     while(infix_string[i] && !is_operator(infix_string[i])){
                         postfix[ptr++] = infix_string[i++];
                         if(infix_string[i] == ')')
                             break;
                     }
+                    postfix[ptr++] = ' ';
                 }
                 break;
             }
@@ -196,12 +199,60 @@ short int validate_infix(char *infix) {
         return 0;
     }
     for(int i = 0;i < strlen(infix);i++) {
-        printf("%c, %c, %c\n", infix[i-1], infix[i], infix[i+1]);
         if(is_operator(infix[i]) && ( is_operator(infix[i-1]) || is_operator(infix[i+1] || infix[i-1] == '(' || infix[i+1] == ')')) ){
             return 0;
         }
     }
     return 1;
+}
+
+int operator_result(char operator, int a, int b) {
+    switch (operator)
+    {
+    case '+':{
+        return a+b;
+        break;
+    }
+    case '-': {
+        return a-b;
+        break;
+    }
+    case '*': {
+        return a*b;
+        break;
+    }
+    case '/': {
+        return a/b;
+        break;
+    }
+    case '%': {
+        return a%b;
+        break;
+    }
+    default:
+        break;
+    }
+    return INT_MIN;
+}
+
+int evaluate(char *postfix) {
+    char *token = NULL;
+    int final_result = 0;
+    stack s;
+    init_stack(&s, 256);
+    token = strtok(postfix, " ");
+    while(token) {
+        if(is_operator(*token)) {
+            int result = operator_result(*token, pop(&s), pop(&s));
+            push(&s, result);
+            final_result = result;
+        } else {
+            int num = atoi(token);
+            push(&s, num);
+        }
+        token = strtok(NULL, " ");
+    }
+    return final_result;
 }
 
 int main() {
@@ -212,6 +263,7 @@ int main() {
     if(validate_infix(str)) {
         infix_to_postfix(str);
         printf("postfix : %s\n", str);
+        printf("result = %d\n", evaluate(str));
     }else {
         printf("Invalid expression!\n");
     }
