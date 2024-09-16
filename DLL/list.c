@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "list.h"
+#include "hash.h"
 
 void init (list *l) {
     l -> head = NULL;
@@ -147,48 +148,9 @@ void sort(list l) {
     return;
 }
 
-/* Hash map functions */
-void init_ht(int *ht, int len) {
-    for (int i = 0; i < len; i++) {
-        ht[i] = INT_MIN;
-    }
-    return;
-}
-
-int hash(int key, int len) {
-    int hash = key * 31; // Multiply by a prime number
-    return hash % len;
-}
-
-
-short int insert(int *arr, int element, int index, int len) {
-    if(arr[index] == INT_MIN) {
-        arr[index] = element;
-    }
-    else {
-        if(arr[index] == element)
-            return 0;
-        while(arr[index] != INT_MIN) {
-            if(arr[index] == element)
-                return 0;
-            index = (index+1) % len;
-        }
-        arr[index] = element;
-    }   
-    return 1;
-}
-void print_array(int *arr, int len) {
-    printf("[\t");
-    for (int i = 0; i < len; i++) {
-        printf("%d\t", arr[i]);
-    }
-    printf("]\n");
-    return;
-}
-
 void remove_duplicates(list *l) {
     node *p = l -> head;
-    // Hash map for elements
+    // Simple hash table to keep track of elements
     int len = list_len(*l);
     int hash_table[len];
     init_ht(hash_table, len);
@@ -204,7 +166,6 @@ void remove_duplicates(list *l) {
         p = next;
     }
 }
-/* End of hash map declarations */
 
 void printLR(list l) {
     node *p;
