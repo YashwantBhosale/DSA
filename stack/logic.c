@@ -3,15 +3,16 @@
 /* Function to initialize stack */
 void init(stack *s, int size) {
     s -> arr = (int *) malloc(size * sizeof(int));
-    s -> top = 0;
+    s -> top = -1;
     s -> size = size;
     return;
 }
 
 /* Function to push an element in the stack */
 void push(stack *s, int data) {
-    if(s->top >= s->size-1)
-        return;
+    if(s->top >= s->size-1){
+        s -> arr = (int *) realloc(s->arr, (s->size+1) * sizeof(int));
+    }
     s->top++;
     s->arr[s->top] = data;
     return;
@@ -32,7 +33,7 @@ int peek(stack s) {
 /* Function to display the stack */
 void display(stack s) {
     printf("[\t");
-    for(int i = 0; i <= s.top; i++) {
+    for(int i = s.top; i >= 0; i--) {
         printf("%d\t", s.arr[i]);
     }
     printf("]\n");

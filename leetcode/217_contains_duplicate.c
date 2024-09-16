@@ -31,7 +31,6 @@ short int insert(int *arr, int element, int index, int len) {
         }
         arr[index] = element;
     }   
-    printf("%d inserted at %d.\n", element, index);		
     return 1;
 }
 
