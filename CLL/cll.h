@@ -1,5 +1,4 @@
 /* This is a header file for circular linked list */
-
 typedef struct node {
     int data;
     struct node *next;
