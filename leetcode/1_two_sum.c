@@ -6,7 +6,8 @@ typedef struct {
     int num;
     int index;
 } node;
-
+/*
+ * Inefficient hash function unnecessary loops will only slow down the program
 int hash(int num) {
     int prime = 1223;
     long hash = 0;
@@ -15,6 +16,20 @@ int hash(int num) {
         num = num / 7;
     }
     return (int) (num*prime) % INT_MAX;
+}
+*/
+
+/* Improved hash function spans range more efficiently */
+int hash(int num) {
+    long long hash = num; 
+    long long prime = 31;
+    hash = (hash * prime) % INT_MAX;
+    hash = (hash ^ (hash >> 16)) % INT_MAX;
+    hash = (hash * 0x85ebca6b) % INT_MAX;
+    hash = (hash ^ (hash >> 13)) % INT_MAX;
+    hash = (hash * 0xc2b2ae35) % INT_MAX;
+    hash = (hash ^ (hash >> 16)) % INT_MAX;
+    return (int)hash;
 }
 
 short int insert(node **hash_table, int element, int og_index, int index, int len) {
