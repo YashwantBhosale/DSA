@@ -41,6 +41,7 @@ void insert_from_begining(list *l, int data) {
         nn -> next = NULL;
         nn -> prev = NULL;
         l ->head = nn;
+        l ->tail = nn;
     }else {
         nn -> next = l -> head;
         nn -> prev = NULL;
@@ -146,6 +147,19 @@ void sort(list l) {
         sorted++;
     }
     return;
+}
+
+short int is_palindrome(list l) {
+    if(!l.head)
+        return 0;
+    node *p = l.head, *q = l.tail;
+    while(p!=q) {
+        if(p -> data != q -> data)
+            return 0;
+        p = p->next;
+        q = q->prev;
+    }
+    return 1;
 }
 
 void remove_duplicates(list *l) {

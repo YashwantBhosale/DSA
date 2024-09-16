@@ -16,5 +16,6 @@ void sort(list l);
 void remove_end(list *l);
 void remove_beg(list *l);
 void remove_duplicates(list *l);
+short int is_palindrome(list l);
 void printLR(list l);
 void printRL(list l);
