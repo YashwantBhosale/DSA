@@ -96,13 +96,16 @@ short int check_legal_chars(char c) {
 
 /* Function to validate infix */
 short int validate_infix(char *infix) {
+    // check for valid paranthesis
     if(!valid_paranthesis(infix)) {
         return 0;
     }
     for(int i = 0;i < strlen(infix);i++) {
+        // check for legal characters, only numbers, operators and paranthesis are allowed
         if(!check_legal_chars(infix[i]))
             return 0;
         
+        // check if there are consecutive operators or paranthesis just after the operator
         if(is_operator(infix[i]) && ( is_operator(infix[i-1]) || is_operator(infix[i+1]) || infix[i-1] == '(' || infix[i+1] == ')')) {
             return 0;
         }
@@ -116,6 +119,7 @@ void infix_to_postfix(char *infix_string, char_stack *cs) {
     int i = 0, ptr = 0;
     char postfix[128];
 
+    // Continue until the expression ends
     while (infix_string[i] != '\0') {
         switch (infix_string[i]) {
             case '(': {
@@ -145,7 +149,7 @@ void infix_to_postfix(char *infix_string, char_stack *cs) {
                         if(infix_string[i] == ')')
                             break;
                     }
-                    postfix[ptr++] = ' ';
+                    postfix[ptr++] = ' '; // insert space as a delimiter
                 }
                 break;
             }
@@ -153,10 +157,10 @@ void infix_to_postfix(char *infix_string, char_stack *cs) {
     }
     while(!is_cs_empty(*cs)){
         postfix[ptr++] = pop_cs(cs);
-        postfix[ptr++] = ' ';
+        postfix[ptr++] = ' '; // insert space as a delimiter
     }
-    postfix[ptr] = '\0';
-    strcpy(infix_string, postfix);
+    postfix[ptr] = '\0'; // Terminate string with null character
+    strcpy(infix_string, postfix); // copy the string in the original string
     return;
 }
 
@@ -199,8 +203,8 @@ int evaluate(char *postfix) {
         if(is_operator(token[0])) {
             int b = pop_int(&s);
             int a = pop_int(&s);
-            int result = operator_result(*token, a, b);
-            push_int(&s, result);
+            int result = operator_result(*token, a, b); // Compute result
+            push_int(&s, result); // push the result to the stack
         } else {
             int num = atoi(token);
             push_int(&s, num);

@@ -53,12 +53,15 @@ void insert_pos(list *l, int pos, int data) {
     }else {
         while(i < pos-1) {
             if(p -> next == *l)
-                return; // Invalid position
+                break;
             p = p->next;
             i++;
         }
-        nn -> next = p->next;
-        p -> next = nn;
+        // if i is not equal to pos - 1 then it means that pos was out of bounds   
+        if(i == pos-1){
+            nn -> next = p->next;
+            p -> next = nn;
+        }
     }
     return;
 }
@@ -98,7 +101,7 @@ void remove_pos(list *l, int pos) {
     node *p = *l, *q = NULL;
     while(i < pos-1) {
         if(p -> next == *l)
-            return; // Invalid positionI
+            return; // Invalid position
         p = p->next;
         i++;
     }

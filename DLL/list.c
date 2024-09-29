@@ -5,6 +5,7 @@
 #include "hash.h"
 
 void init (list *l) {
+    if(!l) return;
     l -> head = NULL;
     l -> tail = NULL;
     return;
@@ -18,8 +19,8 @@ int isEmpty(list l) {
 
 void insert_end (list *l, int data) {
     node *nn = (node *) malloc(sizeof(node));
-    nn -> next = NULL;
-    if (l -> head == NULL) {
+    nn -> next = NULL; // As this is going to be the last node, its next will always be NULL.
+    if (l -> head == NULL) { // if the list is empty
         nn -> prev = NULL;
         nn -> data = data;
         l -> tail = nn;
@@ -37,14 +38,13 @@ void insert_from_begining(list *l, int data) {
     node *nn;
     nn = (node *) malloc(sizeof(node));
     nn->data = data;
+    nn->prev = NULL; // As this is going to be the first node, its previous will always be NULL.
     if(l -> head == NULL) {
         nn -> next = NULL;
-        nn -> prev = NULL;
         l ->head = nn;
         l ->tail = nn;
     }else {
         nn -> next = l -> head;
-        nn -> prev = NULL;
         l -> head -> prev = nn;
         l -> head = nn;
     }
@@ -57,7 +57,7 @@ void insert_at_index(list *l, int data, int index) {
     nn -> data = data;
     while(i < index-1) {  // index-1 because we want to reach just one node before the required node
         if(p->next == NULL)
-            return; // invalid index
+            return; // End of the list
         p = p->next;
         i++;
     }
@@ -87,12 +87,14 @@ void remove_at_index(list *l, int index) {
 void remove_end(list *l) {
     node *p = l -> tail;
     if (!p) {
-        return;
+        return; // empty list
     }
     if(p -> prev){
+        // update the second last node
         l -> tail = p -> prev;
         p -> prev -> next = NULL;
     }
+    // if it is the only node, then tail will become NULL
     else 
         l -> tail = NULL;
     free(p);
@@ -102,12 +104,14 @@ void remove_end(list *l) {
 void remove_beg(list *l) {
     node *p = l -> head;
     if(!p) {
-        return;
+        return; // empty list
     }
     if(p -> next){
+        // update the second node
         l -> head = p -> next;
         p -> next -> prev = NULL;
     }
+    // if it is the only node then head will be NULL
     else
         l -> head = NULL;
     free(p);
@@ -144,7 +148,7 @@ void sort(list l) {
             j++;
         }
         p = p->next;
-        sorted++;
+        sorted++; // after each iteration largest element will be placed at the end
     }
     return;
 }

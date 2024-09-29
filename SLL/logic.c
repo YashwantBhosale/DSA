@@ -61,9 +61,13 @@ void remove_at_pos(list *l, int index) {
         p = p->next;
         i++;
     }
-    q = p -> next; /* store address of the node to be deleted */
-    p -> next = q -> next; /* update next node link of previous node */
-    free(q);
+
+    /* Check if we are at one node before the actual node, if not then it means that index is more than the length of the list */ 
+    if(i == index-1){
+        q = p -> next; /* store address of the node to be deleted */
+        p -> next = q -> next; /* update next node link of previous node */
+        free(q);
+    }
     return;
 }
 
