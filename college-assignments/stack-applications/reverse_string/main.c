@@ -14,11 +14,26 @@ void reverse(char *s) {
     return;
 }
 
+// Function to read strings including white space character
+void read_string(char *str) {
+    int i = 0;
+    while((str[i] = getchar()) != '\n' && str[i] != '\0' && str[i] != EOF) // EOF because we will be reading a file of testcases
+        i++;
+    str[i] = '\0';
+    return;
+}
+
 int main() {
     char str[64];
-    printf("Enter string: ");
-    scanf("%s", str);
-    reverse(str);
-    printf("After reversing: %s\n", str);
+    while(1){
+        printf("Enter string or 'exit' to Exit: \n");
+        read_string(str);
+        if(strcmp(str, "exit") == 0)
+            break;
+        printf("Entered string: %s\n", str);
+        reverse(str);
+        printf("After reversing: %s\n", str);
+        printf("\n");
+    }
     return 0;
 }

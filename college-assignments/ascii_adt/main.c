@@ -4,6 +4,7 @@
 int main() {
     list l;
     char c;
+
     printf("Enter a character: ");
     scanf("%c", &c);
     init_ascii(&l);

@@ -46,8 +46,8 @@ void display(array a) {
     for(int i = 0; i < a.size; i++){
         if(a.arr[i])
             printf("%d,\t", a.arr[i]);
-        else
-            printf("X,\t");
+//        else
+//           printf("X,\t");
     }
     printf("]\n");
     return;

@@ -46,11 +46,19 @@ short int valid_paranthesis(char *s) {
 
 int main() {
     char str[64];
-    printf("Enter string: ");
-    scanf("%s", str);
-    if(valid_paranthesis(str))
-        printf("Valid Paranthesis!\n");
-    else
-        printf("Invalid Paranthesis\n");
+
+    while(1){
+        printf("Enter string or enter 'exit' to exit the program: \n");
+        scanf("%s", str);
+        if(strcmp(str, "exit") == 0)
+            break;
+        printf("Expression: %s\nResult: ", str);
+        if(valid_paranthesis(str))
+            printf("True\n");
+        else
+            printf("False\n");
+        
+        printf("\n");
+    }
     return 0;
 }
