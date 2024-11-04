@@ -126,6 +126,112 @@ void inorder(bst *t) {
 	return;
 }
 
+void inorder_v2(bst *t) {
+    stack s;
+    init(&s, t->count);
+    node *p = t->root;
+
+    while(1) {
+        if(p != NULL) {
+            push(&s, p);
+            p = p->lchild;
+        }else {
+            if(is_empty(&s)) break;
+
+            node *popped = pop(&s);
+            print_month(popped->month);
+            p = popped->rchild;
+        }
+    }
+
+	printf("\n");
+    return;
+}
+
+void postorder(bst *t) {
+	/*
+		approach: 
+		1. Push the root to s1
+		2. Pop the stack and push the popped node to s2
+		3. Push the left child first and then the right child
+		4. Repeat step 2 and 3 until the stack is empty
+	*/
+
+	stack s1, s2;
+	init(&s1, t->count);
+	init(&s2, t->count);
+
+	node *p = t->root;
+	push(&s1, p); // Push the root to s1
+
+	while(!is_empty(&s1)) {
+		node *popped = pop(&s1);
+		push(&s2, popped); // push the popped node to s2
+
+		if(popped->lchild) {
+			push(&s1, popped->lchild);
+		}
+
+		if(popped->rchild) {
+			push(&s1, popped->rchild);
+		}
+	}
+
+	// print the postorder traversal
+	while(!is_empty(&s2)) {
+		node *popped = pop(&s2);
+		print_month(popped->month);
+	}
+
+	printf("\n");
+	return;
+}
+
+void preorder(bst *t) {
+	/*
+		approach:
+		1. Push the root to the stack
+		2. Pop the stack and print the month
+		3. Push the right child first and then the left child
+		4. Repeat step 2 and 3 until the stack is empty
+
+	*/	
+
+
+	stack s;
+	init(&s, t->count);
+
+	node *p = t->root;
+	push(&s, p);
+
+	while(!is_empty(&s)) {
+		node *popped = pop(&s);
+		print_month(popped->month);
+
+		// push the right child first, as stack is LIFO
+		if(popped->rchild) {
+			push(&s, popped->rchild);
+		}
+
+		// push the left child
+		if(popped->lchild) {
+			push(&s, popped->lchild);
+		}
+	}
+
+	printf("\n");
+	return;
+}
+
+/*
+	approach for level order traversal:
+	1. Create a queue
+	2. Enqueue the root
+	3. Dequeue the node and print the month
+	4. Enqueue the left child first and then the right child
+	5. Repeat step 3 and 4 until the queue is empty
+*/
+
 void removeNode(bst *t, int month) {
 	/*
 	    3 cases:
