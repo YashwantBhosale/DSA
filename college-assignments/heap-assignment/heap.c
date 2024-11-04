@@ -128,6 +128,30 @@ void heapify(Heap *heap) {
 	return;
 }
 
+void heapify_v2(Heap *heap) {
+    for (int i = 1; i <= heap->rear; i++) {
+        moveUp(heap, i);
+    }
+}
+
+// Helper function to move up an element to maintain the max-heap property
+void moveUp(Heap *heap, int i) {
+    while (i > 0) {
+        int parent = (i - 1) / 2;
+        
+        // If the current node is greater than its parent, swap them
+        if (heap->h[i] > heap->h[parent]) {
+            swap(heap, i, parent);
+            i = parent; // Move up to the parent's index
+        } else {
+            break;
+        }
+    }
+	return;
+}
+
+
+
 void heap_sort(Heap *heap) {
 	// If the heap is empty or contains single element, return as there is nothign to sort
 	if (heap->rear <= 0) {
