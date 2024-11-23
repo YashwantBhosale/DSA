@@ -14,6 +14,7 @@ void init(array *a, int size) {
 void append(array *a, int element) {
     if(!a) {
         printf("invalid array\n");
+        return;
     }
     if(a->len >= a->size) {
         return;
