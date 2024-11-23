@@ -37,6 +37,10 @@ void insert_end (list *l, int data) {
 void insert_from_begining(list *l, int data) {
     node *nn;
     nn = (node *) malloc(sizeof(node));
+    if(!nn) {
+        return; // Memory allocation failed
+    }
+
     nn->data = data;
     nn->prev = NULL; // As this is going to be the first node, its previous will always be NULL.
     if(l -> head == NULL) {
@@ -50,6 +54,53 @@ void insert_from_begining(list *l, int data) {
     }
     return;
 }
+
+void insert_at_index(list *l, int data, int index) {
+    if(index < 0) {
+        return; // invalid index
+    }
+
+    int i = 0;
+    node *nn = (node *) malloc(sizeof(node)), *p = l->head;
+    if(!nn) {
+        return; // Memory allocation failed
+    }
+
+    nn->data = data;
+    nn->next = NULL;
+
+    if(index == 0) {
+        insert_from_begining(l, data);
+        return;
+    }
+
+    // we need to reach the node just before the required node
+    while(i < index-1 && p) {
+        p = p->next;
+        i++;
+    }
+    
+    if(i != index-1 || !p) {
+        free(nn);
+        return;
+    }
+
+    if(p == l->tail) {
+        l->tail->next = nn;
+        nn->prev = l->tail;
+        l->tail = nn;
+        return;        
+    }
+
+    nn->next = p->next;
+    nn->prev = p;
+    p->next->prev = nn;
+    p->next = nn;
+    return;
+}
+
+/*
+Incorrect Version ~ Doesn't handle edge cases of head and tail
 
 void insert_at_index(list *l, int data, int index) {
     int i = 0;
@@ -67,6 +118,7 @@ void insert_at_index(list *l, int data, int index) {
     p -> next = nn;
     return;
 }
+*/
 
 void remove_at_index(list *l, int index) {
     int i = 0;
