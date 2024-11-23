@@ -121,6 +121,42 @@ void insert_at_index(list *l, int data, int index) {
 */
 
 void remove_at_index(list *l, int index) {
+    if(index < 0) {
+        return; // invalid index
+    }
+
+    int i = 0;
+    node *p = l->head, *q = NULL;
+
+    if(index == 0) {
+        remove_beg(l);
+        return;
+    }
+
+    while(i < index-1 && p) {
+        p = p->next;
+        i++;
+    }
+
+    if(i != index-1 || !p) {
+        return; // invalid index
+    }
+
+    if(p->next == l->tail) {
+        remove_end(l);
+        return;
+    }
+
+    q = p->next;
+    p->next = q->next;
+    if(q->next)
+        q->next->prev = p;
+    free(q);
+    return;
+}
+
+/*
+void remove_at_index(list *l, int index) {
     int i = 0;
     node *p = l -> head, *q=NULL;
     while(i < index-1) { // index-1 because we want to reach just one node before the required node
@@ -135,6 +171,7 @@ void remove_at_index(list *l, int index) {
     free(q);
     return;
 }
+*/
 
 void remove_end(list *l) {
     node *p = l -> tail;
@@ -164,8 +201,10 @@ void remove_beg(list *l) {
         p -> next -> prev = NULL;
     }
     // if it is the only node then head will be NULL
-    else
+    else{
         l -> head = NULL;
+        l -> tail = NULL;
+    }
     free(p);
     return;
 }
