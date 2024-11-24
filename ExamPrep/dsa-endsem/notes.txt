@@ -1,0 +1,78 @@
+* Array
+typedef struct Array {
+    int len;
+    int *arr;
+    int size;
+} Array;
+In insert at index of the array, 
+1. we will start from i = len-2 and end at i = index (i > index) and keep shifting arr[i] to arr[i+1].
+2. then simply arr[i] = element;
+
+In remove at index of the array,
+we will simply start from i = index upto i = len-2 and keep overwriting data at i with the data at i+1.
+arr[i] = arr[i+1]
+
+* SLL
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+typedef Node *List;
+
+Special conditions in remove at position and insert at position functions.
+We often forget to pay attention to the adjust the list head if we are inserting at the begining or removing from the begining of the list.
+
+check early if the index to be operated on is 0. If yes then do the operation adjust head and do early return.
+
+* PENDING *
+1. Sorting the singly linked list
+2. Checking if the list is palindrome
+3. Merge two sorted list to create a sorted list
+...
+
+* DLL
+typedef struct Node {
+    int data;
+    struct Node *prev, *next;
+} Node;
+
+typedef struct List {
+    Node *head, *tail;
+    int size; // Not essential
+} List;
+
+1. in insert_at_index we need to check if the we are inserting at the head position to adjust the head. We may handle it specially and do an early return, but important thing is to consider possibility of l->head being NULL more correct approach might be to directly call insert_at_beg function if already implemented that is.
+2. similarly in remove at index it is convinient to call remove_beg remove_end functions as those functions independently consider edge cases for those functions.
+
+* PENDING
+1. operations like remove duplicates
+2. move positive, negative on sll and dll
+3. sort algorithms
+...
+
+* CLL
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+
+typedef Node *List;
+
+1. In insert_beg function we not only have to update the head but the last element as well. First we need to create new node, set current head as next node of new node then traverse all the way to the end and update the next of the last element to new node. AND ONLY THEN update the head pointer of the list.i.e *l = nn;
+if we update head before traversing we may not be able to find the last element and end up in infinite loop.
+Also, goes without saying we need to check if the head is NULL.
+
+2.ideas for insert at index and remove at index are similar to sll and dll as discussed above
+
+* heap
+typedef struct heap {
+    int *h;
+    int size, rear;
+} Heap;
+
+1. heapify can be done recursively by making use of property that 
+in a heap, all the subtrees are recursively heaps.
+2. build max heap can be done in O(N) by recursively heapifying internal nodes starting from left
+
+
