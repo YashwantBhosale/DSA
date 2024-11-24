@@ -185,6 +185,28 @@ void inorder(BST bst) {
 	}
 }
 
+void inorder(BST bst) {
+	if(!bst) return;
+
+	Node *p = bst;
+	Stack s;
+	init_stack(*s);
+
+	while(1) {
+		if(p){
+			push(&s, p);
+			p = p->lchild;
+		}
+		else {
+			if(is_empty(&s)) return;
+
+			Node *popped = pop(&s);
+			printf("%d ", popped->data);
+			p = popped->rchild;
+		}
+	}
+}
+
 // 2. preorder
 void preorder_recursive(BST bst) {
 	if (!bst) return;
@@ -233,19 +255,20 @@ void postorder(BST bst) {
     init_stack(&s1);
     init_stack(&s2);
 
-    push(&s, p);
+    push(&s1, p);
 
     while(!is_empty(&s1)) {
         Node *popped = pop(&s1);
         push(&s2, popped);
 
+        if(popped->lchild) push(&s1, popped->lchild);
+		
         if(popped->rchild) push(&s1, popped->rchild);
 
-        if(popped->lchild) push(&s1, popped->lchild);
     }
 
     while(!is_empty(&s2)) {
-        printf("%d ", pop(&s)->data);
+        printf("%d ", pop(&s2)->data);
     }
 }
 

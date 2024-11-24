@@ -76,10 +76,10 @@ void heapify_recursive(Heap *heap, int i) {
 
     if(largest != i) {
         swap(heap, i, largest);
-        heapify(heap, largest);
+        heapify_recursive(heap, largest);
     }
     
-    // hear the base condition for the recursion is basically largest == i, i.e largest element is parent of the two subtrees so everything else must be correct.
+    // here the base condition for the recursion is basically largest == i, i.e largest element is parent of the two subtrees so everything else must be correct.
     return;
 }
 
@@ -88,7 +88,7 @@ void heapify_recursive(Heap *heap, int i) {
 void build_max_heap(Heap *heap) {
     // iterate over internal nodes starting from the last internal node
     for(int i = heap->rear / 2; i >= 0; i--) {
-        heapify(heap, i);
+        heapify_recursive(heap, i);
     }
     return;
 }
