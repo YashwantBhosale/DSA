@@ -117,7 +117,7 @@ void DFS(Graph *g, int src) {
 				push(&s, p->dest);
 				visited[p->dest] = 1;
 			}
-            p = p->next;
+			p = p->next;
 		}
 	}
 
@@ -125,27 +125,103 @@ void DFS(Graph *g, int src) {
 }
 
 void BFS(Graph *g, int src) {
-    queue q;
-    qinit(&q);
+	queue q;
+	qinit(&q);
 
 	int *visited = (int *)calloc(g->vertices, sizeof(int));
 
-    enq(&q, src);
-    visited[src] = 1;
+	enq(&q, src);
+	visited[src] = 1;
 
-    while(!isEmpty(&q)) {
-        int popped = deq(&q);
-        printf("%d ", popped);
+	while (!isEmpty(&q)) {
+		int popped = deq(&q);
+		printf("%d ", popped);
 
-        Node *p = g->adjList[popped];
-        while(p) {
-            if(!visited[p->dest]) {
-                enq(&q, p->dest);
-                visited[p->dest] = 1;
-            }
-            p = p->next;
-        }
-    }
+		Node *p = g->adjList[popped];
+		while (p) {
+			if (!visited[p->dest]) {
+				enq(&q, p->dest);
+				visited[p->dest] = 1;
+			}
+			p = p->next;
+		}
+	}
 
-    free(visited);
+	free(visited);
+}
+
+int is_cyclic_bfs(Graph *g, int start) {
+	queue q;
+	qinit(&q);
+
+	int *visited = (int *)calloc(g->vertices, sizeof(int));
+	int *parent = (int *)malloc(g->vertices * sizeof(int));
+
+	for (int i = 0; i < g->vertices; i++) {
+		parent[i] = -1;
+	}
+
+	enq(&q, start);
+	visited[start] = 1;
+
+	while (!isEmpty(&q)) {
+		int popped = deq(&q);
+
+		Node *p = g->adjList[popped];
+		while (p) {
+			if (!visited[p->dest]) {
+				enq(&q, p->dest);
+				parent[p->dest] = popped;
+				visited[p->dest] = 1;
+			} else if (parent[popped] != p->dest) {
+				free(visited);
+				free(parent);
+				return 1;
+			}
+
+			p = p->next;
+		}
+	}
+	
+	free(visited);
+	free(parent);
+	return 0;
+}
+
+int is_cyclic_dfs(Graph *g, int start) {
+	stack s;
+	init(&s, g->vertices);
+
+	int *visited = (int *)calloc(g->vertices, sizeof(int));
+	int *parent = (int *)malloc(g->vertices * sizeof(int));
+
+	for (int i = 0; i < g->vertices; i++) {
+		parent[i] = -1;
+	}
+
+	push(&s, start);
+	visited[start] = 1;
+
+	while (!is_empty(&s)) {
+		int popped = pop(&s);
+
+		Node *p = g->adjList[popped];
+		while (p) {
+			if (!visited[p->dest]) {
+				push(&s, p->dest);
+				parent[p->dest] = popped;
+				visited[p->dest] = 1;
+			} else if (parent[popped] != i) {
+				free(visited);
+				free(parent);
+				return 1;
+			}
+
+			p = p->next;
+		}
+	}
+
+	free(visited);
+	free(parent);
+	return 0;
 }
