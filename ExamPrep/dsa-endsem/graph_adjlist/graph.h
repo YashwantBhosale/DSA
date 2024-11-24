@@ -1,5 +1,6 @@
 typedef struct node {
     int dest;
+    int weight;
     struct node *next;
 } Node;
 
