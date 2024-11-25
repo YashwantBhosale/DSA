@@ -211,7 +211,7 @@ int is_cyclic_dfs(Graph *g, int start) {
 				push(&s, p->dest);
 				parent[p->dest] = popped;
 				visited[p->dest] = 1;
-			} else if (parent[popped] != i) {
+			} else if (parent[popped] != p->dest) {
 				free(visited);
 				free(parent);
 				return 1;
