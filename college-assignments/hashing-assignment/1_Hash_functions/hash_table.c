@@ -2,8 +2,14 @@
 #include <stdlib.h>
 #include "hash_table.h"
 
-int hash(int key, int size) {
+int division_hash(int key, int size) {
     return key % size;
+}
+
+int multiplication_hash(int key, int size) {
+    double A = 0.6180339887;
+    double frac = key * A - (int)(key * A);
+    return (int)(size * frac);
 }
 
 void init_table(HashTable *ht, int size) {
@@ -14,7 +20,7 @@ void init_table(HashTable *ht, int size) {
 }
 
 void insert(HashTable *ht, int key, int value) {
-    int index = hash(key, ht->size);
+    int index = division_hash(key, ht->size);
 
     Entry *new_entry = (Entry *)malloc(sizeof(Entry));
     new_entry->key = key;
@@ -31,7 +37,7 @@ void insert(HashTable *ht, int key, int value) {
 }
 
 void delete(HashTable *ht, int key) {
-    int index = hash(key, ht->size);
+    int index = division_hash(key, ht->size);
 
     free(ht->table[index]);
     ht->table[index] = NULL;
@@ -40,7 +46,7 @@ void delete(HashTable *ht, int key) {
 }
 
 int search(HashTable *ht, int key) {
-    int index = hash(key, ht->size);
+    int index = division_hash(key, ht->size);
 
     if (ht->table[index] == NULL) {
         return -1;

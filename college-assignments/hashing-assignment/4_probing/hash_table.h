@@ -2,21 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
-    EXPERIMENT:
-    Implement a simple hash function using the division method.
-    Write a small program that hashes integers using your function, then observe
-    how data is distributed across an array of a fixed size.
-*/
-
-typedef struct {
+typedef struct Entry {
     int key;
     int value;
+    unsigned hash;
 } Entry;
 
 typedef struct {
     Entry **table;
+    int count;
     int size;
+    unsigned total_probes;
 } HashTable;
 
 void init_table(HashTable *ht, int size);
@@ -25,5 +21,6 @@ void delete(HashTable *ht, int key);
 int search(HashTable *ht, int key);
 void print_table(HashTable *ht);
 void free_table(HashTable *ht);
-int multiplication_hash(int key, int size);
-int division_hash(int key, int size);
+unsigned hash(int key, int size);
+
+void insert_quadratic_probing(HashTable *ht, int key, int value);

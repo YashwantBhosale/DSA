@@ -2,33 +2,57 @@
 #include <stdlib.h>
 #include "hash_table.h"
 
+void calculate(HashTable *ht, double *avg_chain_length, int *max_chain_length);
+
 int main() {
-    HashTable ht;
-    init_table(&ht, 11);
+    int table_size = 150;
+    int num_elements =100;
 
-    // test 1: simple sequential insertions
-    for(int i = 1; i <= 10; i++) {
-        insert(&ht, i, i*10);
+    for (int test = 1; test <= 5; test++) {
+        HashTable ht;
+        init_table(&ht, table_size);
+
+        for (int i = 0; i < num_elements; i++) {
+            int key = rand() % 1000; 
+            int value = rand() % 1000;
+            insert(&ht, key, value);
+        }
+
+        double avg_chain_length;
+        int max_chain_length;
+        calculate(&ht, &avg_chain_length, &max_chain_length);
+
+        // Print result
+        printf("Test %d:\n", test);
+        printf("Table Size: %d\n", table_size);
+        printf("Number of Elements: %d\n", num_elements);
+        printf("Average Chain Length: %.2f\n", avg_chain_length);
+        printf("Maximum Chain Length: %d\n\n", max_chain_length);
     }
-    print_table(&ht);
-
-    // test 2: search for a key
-    int key = 5;
-    printf("Searching for key %d\n", key);
-    int value = search(&ht, key);
-    printf("Value for key %d: %d\n", key, value);
-
-    // test 3: delete a key
-    key = 5;
-    printf("Deleting key %d\n", key);
-    delete(&ht, key);
-    print_table(&ht);
-
-    // test 4: search for a key that was deleted
-    key = 5;
-    printf("Searching for key %d\n", key);
-    value = search(&ht, key);
-    printf("Value for key %d: %d\n", key, value);
 
     return 0;
+}
+
+void calculate(HashTable *ht, double *avg_chain_length, int *max_chain_length) {
+    int total_chains = 0;
+    int total_elements = 0;
+    *max_chain_length = 0;
+
+    for (int i = 0; i < ht->size; i++) {
+        int chain_length = 0;
+        Entry *current = ht->table[i];
+        while (current) {
+            chain_length++;
+            current = current->next;
+        }
+        if (chain_length > *max_chain_length) {
+            *max_chain_length = chain_length;
+        }
+        if (chain_length > 0) {
+            total_chains++;
+        }
+        total_elements += chain_length;
+    }
+
+    *avg_chain_length = total_chains ? total_elements / (double)total_chains : 0.0;
 }
