@@ -1,3 +1,5 @@
+# Data Structures and Algorithms in C
+
 ## Quick Links
 - [Overview](#overview)
 - [Data Structures](#data-structures)
@@ -9,7 +11,7 @@
 ## Overview
 This is a Data Structures and Algorithms repository. It contains the implementation of various data structures and algorithms in C Programming language. Also, it contains every single assignment of the my Data Structures and Algorithms course.
 
-#### Genearal Structure of any Folder
+#### General Structure of any Folder
 1. **header.h**: It contains all the function prototypes and the structure of the data structure.
 2. **data_structure.c**: It contains the implementation of the data structure.
 3. **main.c**: It contains the main function and the driver code to test the data structure.
