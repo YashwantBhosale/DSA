@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.ejs": "html",
-        "list.h": "c",
-        "array.h": "c",
-        "random": "c"
-    }
-}
