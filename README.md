@@ -9,7 +9,7 @@
 - [About the Author](#about-the-author)
 
 ## Overview
-This is a Data Structures and Algorithms repository. It contains the implementation of various data structures and algorithms in C Programming language. Also, it contains every single assignment of the my Data Structures and Algorithms course.
+This is a Data Structures and Algorithms repository. It contains the implementation of various data structures and algorithms in C Programming language. Also, it contains every single assignment of my Data Structures and Algorithms course.
 
 #### General Structure of any Folder
 1. **header.h**: It contains all the function prototypes and the structure of the data structure.
